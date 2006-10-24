@@ -1,0 +1,1 @@
+require 'password_generation'
