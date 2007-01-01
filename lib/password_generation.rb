@@ -4,16 +4,13 @@ class Password
   private
   # This flag is used in conjunction with Password.phonemic and states that a
   # password must include a digit.
-  #
   ONE_DIGIT  =	1
   
   # This flag is used in conjunction with Password.phonemic and states that a
   # password must include a capital letter.
-  #
   ONE_CASE    = 1 << 1
   
   # phoneme flags
-  #
   CONSONANT = 1
   VOWEL	    = 1 << 1
   DIPHTHONG = 1 << 2
@@ -64,7 +61,6 @@ class Password
   
   class << self
     # Determine whether the next character should be a vowel or consonant.
-    #
     def get_vowel_or_consonant
       rand( 2 ) == 1 ? VOWEL : CONSONANT
     end
@@ -85,7 +81,6 @@ class Password
     #
     # Generated passwords may contain any of the characters in
     # <em>Password::PASSWD_CHARS</em>.
-    #
     def generate(length=8, flags=ONE_DIGIT | ONE_CASE)
       password = nil
       ph_flags = flags

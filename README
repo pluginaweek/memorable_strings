@@ -1,4 +1,24 @@
-PasswordGeneration
-==================
+= password_generation
 
-Description goes here
+password_generation .
+
+== Resources
+
+Wiki
+
+* http://wiki.pluginaweek.org/Password_generation
+
+Announcement
+
+* http://www.pluginaweek.org/
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/miscellaneous/password_generation
+
+Development
+
+* http://dev.pluginaweek.org/browser/trunk/plugins/miscellaneous/password_generation
+
+== Description
+
