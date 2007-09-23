@@ -1,2 +1,11 @@
 *SVN*
 
+*0.0.1* (September 23rd, 2007)
+
+* Add documentation
+
+* Fix licensing
+
+* Add unit tests
+
+* Rename to password_generator

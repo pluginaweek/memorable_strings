@@ -64,23 +64,22 @@ class Password
       rand( 2 ) == 1 ? VOWEL : CONSONANT
     end
     
-    # Generate a memorable password of _length_ characters, using phonemes that
+    # Generate a memorable password of +length+ characters, using phonemes that
     # a human-being can easily remember. +flags+ is one or more of
     # <tt>Password::ONE_DIGIT</tt> and <tt>Password::ONE_CASE</tt>, logically
     # OR'ed together. For example:
     # 
-    #   password = Password.generate( 8, Password::ONE_DIGIT | Password::ONE_CASE )
+    #   password = Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)
     # 
     # This would generate an eight character password, containing a digit and an
     # upper-case letter, such as *Ug2shoth*.
     # 
-    # This method was inspired by the
-    # pwgen[http://sourceforge.net/projects/pwgen/] tool, written by Theodore
-    # Ts'o.
+    # This method was inspired by the pwgen[http://sourceforge.net/projects/pwgen]
+    # tool, written by Theodore Ts'o.
     # 
     # Generated passwords may contain any of the characters in
-    # <t>Password::PASSWD_CHARS</tt>.
-    def generate(length=8, flags=nil)
+    # <tt>Password::PASSWD_CHARS</tt>.
+    def generate(length = 8, flags = nil)
       password = nil
       ph_flags = flags
       
@@ -88,33 +87,33 @@ class Password
         password = ''
         
         # Separate the flags integer into an array of individual flags
-        feature_flags = [ flags & ONE_DIGIT, flags & ONE_CASE ]
+        feature_flags = [flags & ONE_DIGIT, flags & ONE_CASE]
         
         prev = []
         first = true
         desired = Password.get_vowel_or_consonant
         
         # Get an Array of all of the phonemes
-        phonemes = PHONEMES.keys.map { |ph| ph.to_s }
+        phonemes = PHONEMES.keys.map {|ph| ph.to_s}
         nr_phonemes = phonemes.size
         
         while password.length < length do
         	# Get a random phoneme and its length
-        	phoneme = phonemes[ rand( nr_phonemes ) ]
+        	phoneme = phonemes[rand(nr_phonemes)]
         	ph_len = phoneme.length
           
         	# Get its flags as an Array
-        	ph_flags = PHONEMES[ phoneme.to_sym ]
-        	ph_flags = [ ph_flags & CONSONANT, ph_flags & VOWEL, ph_flags & DIPHTHONG, ph_flags & NOT_FIRST ]
+        	ph_flags = PHONEMES[phoneme.to_sym]
+        	ph_flags = [ph_flags & CONSONANT, ph_flags & VOWEL, ph_flags & DIPHTHONG, ph_flags & NOT_FIRST]
           
         	# Filter on the basic type of the next phoneme
-        	next if ph_flags.include? desired
+        	next if ph_flags.include?(desired)
           
         	# Handle the NOT_FIRST flag
-        	next if first && ph_flags.include? NOT_FIRST
+        	next if first && ph_flags.include?(NOT_FIRST)
           
         	# Don't allow a VOWEL followed a vowel/diphthong pair
-        	next if prev.include? VOWEL && ph_flags.include? VOWEL && ph_flags.include? DIPHTHONG
+        	next if prev.include?(VOWEL) && ph_flags.include?(VOWEL) && ph_flags.include?(DIPHTHONG)
           
         	# Don't allow us to go longer than the desired length
         	next if ph_len > length - password.length
@@ -123,10 +122,10 @@ class Password
         	password << phoneme
           
         	# Handle ONE_CASE
-        	if feature_flags.include? ONE_CASE
-        	  if (first || ph_flags.include? CONSONANT) && rand( 10 ) < 3
+        	if feature_flags.include?(ONE_CASE)
+        	  if (first || ph_flags.include?(CONSONANT)) && rand(10) < 3
         	    password[-ph_len, 1] = password[-ph_len, 1].upcase
-        	    feature_flags.delete ONE_CASE
+        	    feature_flags.delete(ONE_CASE)
         	  end
         	end
           
@@ -134,10 +133,10 @@ class Password
         	break if password.length >= length
           
         	# Handle ONE_DIGIT
-        	if feature_flags.include? ONE_DIGIT
-        	  if !first && rand( 10 ) < 3
-        	    password << ( rand( 10 ) + ?0 ).chr
-        	    feature_flags.delete ONE_DIGIT
+        	if feature_flags.include?(ONE_DIGIT)
+        	  if !first && rand(10) < 3
+        	    password << (rand(10) + ?0).chr
+        	    feature_flags.delete(ONE_DIGIT)
               
         	    first = true
         	    prev = []
@@ -148,7 +147,7 @@ class Password
           
         	if desired == CONSONANT
         	  desired = VOWEL
-        	elsif prev.include? VOWEL || ph_flags.include? DIPHTHONG || rand(10) > 3
+        	elsif prev.include?(VOWEL) || ph_flags.include?(DIPHTHONG) || rand(10) > 3
         	  desired = CONSONANT
         	else
         	  desired = VOWEL
@@ -159,7 +158,7 @@ class Password
         end
         
         # Try again
-        break unless feature_flags.include? ONE_CASE || feature_flags.include? ONE_DIGIT
+        break unless feature_flags.include?(ONE_CASE) || feature_flags.include?(ONE_DIGIT)
         
       end
       

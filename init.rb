@@ -1,1 +1,1 @@
-require 'password_generation'
+require 'password_generator'

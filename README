@@ -1,24 +1,53 @@
-= password_generation
+= password_generator
 
-password_generation .
++password_generator+ generates memorable passwords that a human-being can easily
+remember.
 
 == Resources
 
+API
+
+* http://api.pluginaweek.org/password_generator
+
 Wiki
 
-* http://wiki.pluginaweek.org/Password_generation
+* http://wiki.pluginaweek.org/Password_generator
 
 Announcement
 
-* http://www.pluginaweek.org/
+* http://www.pluginaweek.org
 
 Source
 
-* http://svn.pluginaweek.org/trunk/plugins/miscellaneous/password_generation
+* http://svn.pluginaweek.org/trunk/plugins/miscellaneous/password_generator
 
 Development
 
-* http://dev.pluginaweek.org/browser/trunk/plugins/miscellaneous/password_generation
+* http://dev.pluginaweek.org/browser/trunk/plugins/miscellaneous/password_generator
 
 == Description
 
+Passwords are often difficult to remember, especially if they are simply a random
+combination of letters and numbers.  With +password_generator+, passwords are
+generated based on phonemic combinations.  These combinations make it easier for
+users to recall the password without having to refer back to the message that
+contained the password.  These types of passwords help improve the overall user
+experience.
+
+== Usage
+
+=== Passwords with a digit
+
+  Password.generate(8, Password::ONE_DIGIT)
+
+=== Passwords with a capital letter
+
+  Password.generate(8, Password::ONE_CASE)
+
+=== Passwords with both a digit and a capital letter
+
+  Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)
+
+== References
+
+* Ian Macdonald - {ruby-password}[http://raa.ruby-lang.org/project/ruby-password]
