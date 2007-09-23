@@ -1,5 +1,4 @@
-require 'digest/sha1'
-
+# Provides support generating memorable passwords
 class Password
   private
   # This flag is used in conjunction with Password.phonemic and states that a
@@ -66,22 +65,22 @@ class Password
     end
     
     # Generate a memorable password of _length_ characters, using phonemes that
-    # a human-being can easily remember. _flags_ is one or more of
-    # <em>Password::ONE_DIGIT</em> and <em>Password::ONE_CASE</em>, logically
+    # a human-being can easily remember. +flags+ is one or more of
+    # <tt>Password::ONE_DIGIT</tt> and <tt>Password::ONE_CASE</tt>, logically
     # OR'ed together. For example:
-    #
-    #  password = Password.generate( 8, Password::ONE_DIGIT | Password::ONE_CASE )
-    #
+    # 
+    #   password = Password.generate( 8, Password::ONE_DIGIT | Password::ONE_CASE )
+    # 
     # This would generate an eight character password, containing a digit and an
-    # upper-case letter, such as <b>Ug2shoth</b>.
-    #
+    # upper-case letter, such as *Ug2shoth*.
+    # 
     # This method was inspired by the
     # pwgen[http://sourceforge.net/projects/pwgen/] tool, written by Theodore
     # Ts'o.
-    #
+    # 
     # Generated passwords may contain any of the characters in
-    # <em>Password::PASSWD_CHARS</em>.
-    def generate(length=8, flags=ONE_DIGIT | ONE_CASE)
+    # <t>Password::PASSWD_CHARS</tt>.
+    def generate(length=8, flags=nil)
       password = nil
       ph_flags = flags
       
@@ -106,18 +105,16 @@ class Password
           
         	# Get its flags as an Array
         	ph_flags = PHONEMES[ phoneme.to_sym ]
-        	ph_flags = [ ph_flags & CONSONANT, ph_flags & VOWEL,
-        		     ph_flags & DIPHTHONG, ph_flags & NOT_FIRST ]
+        	ph_flags = [ ph_flags & CONSONANT, ph_flags & VOWEL, ph_flags & DIPHTHONG, ph_flags & NOT_FIRST ]
           
         	# Filter on the basic type of the next phoneme
         	next if ph_flags.include? desired
           
         	# Handle the NOT_FIRST flag
-        	next if first and ph_flags.include? NOT_FIRST
+        	next if first && ph_flags.include? NOT_FIRST
           
         	# Don't allow a VOWEL followed a vowel/diphthong pair
-        	next if prev.include? VOWEL and ph_flags.include? VOWEL and
-        		ph_flags.include? DIPHTHONG
+        	next if prev.include? VOWEL && ph_flags.include? VOWEL && ph_flags.include? DIPHTHONG
           
         	# Don't allow us to go longer than the desired length
         	next if ph_len > length - password.length
@@ -127,7 +124,7 @@ class Password
           
         	# Handle ONE_CASE
         	if feature_flags.include? ONE_CASE
-        	  if (first or ph_flags.include? CONSONANT) and rand( 10 ) < 3
+        	  if (first || ph_flags.include? CONSONANT) && rand( 10 ) < 3
         	    password[-ph_len, 1] = password[-ph_len, 1].upcase
         	    feature_flags.delete ONE_CASE
         	  end
@@ -138,7 +135,7 @@ class Password
           
         	# Handle ONE_DIGIT
         	if feature_flags.include? ONE_DIGIT
-        	  if !first and rand( 10 ) < 3
+        	  if !first && rand( 10 ) < 3
         	    password << ( rand( 10 ) + ?0 ).chr
         	    feature_flags.delete ONE_DIGIT
               
@@ -151,7 +148,7 @@ class Password
           
         	if desired == CONSONANT
         	  desired = VOWEL
-        	elsif prev.include? VOWEL or ph_flags.include? DIPHTHONG or rand(10) > 3
+        	elsif prev.include? VOWEL || ph_flags.include? DIPHTHONG || rand(10) > 3
         	  desired = CONSONANT
         	else
         	  desired = VOWEL
@@ -162,7 +159,7 @@ class Password
         end
         
         # Try again
-        break unless feature_flags.include? ONE_CASE or feature_flags.include? ONE_DIGIT
+        break unless feature_flags.include? ONE_CASE || feature_flags.include? ONE_DIGIT
         
       end
       
