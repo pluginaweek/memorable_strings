@@ -5,25 +5,25 @@ remember.
 
 == Resources
 
-API
+Announcement
 
-* http://api.pluginaweek.org/password_generator
+* http://www.pluginaweek.org
 
 Wiki
 
 * http://wiki.pluginaweek.org/Password_generator
 
-Announcement
+API
 
-* http://www.pluginaweek.org
-
-Source
-
-* http://svn.pluginaweek.org/trunk/plugins/miscellaneous/password_generator
+* http://api.pluginaweek.org/password_generator
 
 Development
 
 * http://dev.pluginaweek.org/browser/trunk/plugins/miscellaneous/password_generator
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/miscellaneous/password_generator
 
 == Description
 
