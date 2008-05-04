@@ -5,10 +5,6 @@ remember.
 
 == Resources
 
-Announcement
-
-* http://www.pluginaweek.org
-
 Wiki
 
 * http://wiki.pluginaweek.org/Password_generator
@@ -19,11 +15,11 @@ API
 
 Development
 
-* http://dev.pluginaweek.org/browser/trunk/plugins/miscellaneous/password_generator
+* http://dev.pluginaweek.org/browser/trunk/password_generator
 
 Source
 
-* http://svn.pluginaweek.org/trunk/plugins/miscellaneous/password_generator
+* http://svn.pluginaweek.org/trunk/password_generator
 
 == Description
 
@@ -47,6 +43,10 @@ experience.
 === Passwords with both a digit and a capital letter
 
   Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)
+
+== Dependencies
+
+None.
 
 == References
 

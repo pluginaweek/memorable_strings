@@ -1,67 +1,67 @@
 # Provides support generating memorable passwords
 class Password
   private
-  # This flag is used in conjunction with Password.phonemic and states that a
-  # password must include a digit.
-  ONE_DIGIT  =	1
-  
-  # This flag is used in conjunction with Password.phonemic and states that a
-  # password must include a capital letter.
-  ONE_CASE    = 1 << 1
-  
-  # phoneme flags
-  CONSONANT = 1
-  VOWEL	    = 1 << 1
-  DIPHTHONG = 1 << 2
-  NOT_FIRST = 1 << 3  # indicates that a given phoneme may not occur first
-  
-  PHONEMES = {
-    :a	=> VOWEL,
-    :ae	=> VOWEL      | DIPHTHONG,
-    :ah => VOWEL      | DIPHTHONG,
-    :ai => VOWEL      | DIPHTHONG,
-    :b	=> CONSONANT,
-    :c	=> CONSONANT,
-    :ch	=> CONSONANT  | DIPHTHONG,
-    :d	=> CONSONANT,
-    :e	=> VOWEL,
-    :ee	=> VOWEL      | DIPHTHONG,
-    :ei	=> VOWEL      | DIPHTHONG,
-    :f	=> CONSONANT,
-    :g	=> CONSONANT,
-    :gh	=> CONSONANT  | DIPHTHONG | NOT_FIRST,
-    :h	=> CONSONANT,
-    :i	=> VOWEL,
-    :ie	=> VOWEL      | DIPHTHONG,
-    :j	=> CONSONANT,
-    :k	=> CONSONANT,
-    :l	=> CONSONANT,
-    :m	=> CONSONANT,
-    :n	=> CONSONANT,
-    :ng	=> CONSONANT  | DIPHTHONG | NOT_FIRST,
-    :o	=> VOWEL,
-    :oh	=> VOWEL      | DIPHTHONG,
-    :oo	=> VOWEL      | DIPHTHONG,
-    :p	=> CONSONANT,
-    :ph	=> CONSONANT  | DIPHTHONG,
-    :qu	=> CONSONANT  | DIPHTHONG,
-    :r	=> CONSONANT,
-    :s	=> CONSONANT,
-    :sh	=> CONSONANT  | DIPHTHONG,
-    :t	=> CONSONANT,
-    :th	=> CONSONANT  | DIPHTHONG,
-    :u	=> VOWEL,
-    :v	=> CONSONANT,
-    :w	=> CONSONANT,
-    :x	=> CONSONANT,
-    :y	=> CONSONANT,
-    :z	=> CONSONANT
-  }
+    # This flag is used in conjunction with Password.generate and states that a
+    # password must include a digit.
+    ONE_DIGIT  =	1
+    
+    # This flag is used in conjunction with Password.generate and states that a
+    # password must include a capital letter.
+    ONE_CASE    = 1 << 1
+    
+    # Phoneme flags
+    CONSONANT = 1
+    VOWEL	    = 1 << 1
+    DIPHTHONG = 1 << 2
+    NOT_FIRST = 1 << 3  # Indicates that a given phoneme may not occur first
+    
+    PHONEMES = {
+      :a	=> VOWEL,
+      :ae	=> VOWEL      | DIPHTHONG,
+      :ah => VOWEL      | DIPHTHONG,
+      :ai => VOWEL      | DIPHTHONG,
+      :b	=> CONSONANT,
+      :c	=> CONSONANT,
+      :ch	=> CONSONANT  | DIPHTHONG,
+      :d	=> CONSONANT,
+      :e	=> VOWEL,
+      :ee	=> VOWEL      | DIPHTHONG,
+      :ei	=> VOWEL      | DIPHTHONG,
+      :f	=> CONSONANT,
+      :g	=> CONSONANT,
+      :gh	=> CONSONANT  | DIPHTHONG | NOT_FIRST,
+      :h	=> CONSONANT,
+      :i	=> VOWEL,
+      :ie	=> VOWEL      | DIPHTHONG,
+      :j	=> CONSONANT,
+      :k	=> CONSONANT,
+      :l	=> CONSONANT,
+      :m	=> CONSONANT,
+      :n	=> CONSONANT,
+      :ng	=> CONSONANT  | DIPHTHONG | NOT_FIRST,
+      :o	=> VOWEL,
+      :oh	=> VOWEL      | DIPHTHONG,
+      :oo	=> VOWEL      | DIPHTHONG,
+      :p	=> CONSONANT,
+      :ph	=> CONSONANT  | DIPHTHONG,
+      :qu	=> CONSONANT  | DIPHTHONG,
+      :r	=> CONSONANT,
+      :s	=> CONSONANT,
+      :sh	=> CONSONANT  | DIPHTHONG,
+      :t	=> CONSONANT,
+      :th	=> CONSONANT  | DIPHTHONG,
+      :u	=> VOWEL,
+      :v	=> CONSONANT,
+      :w	=> CONSONANT,
+      :x	=> CONSONANT,
+      :y	=> CONSONANT,
+      :z	=> CONSONANT
+    }
   
   class << self
     # Determine whether the next character should be a vowel or consonant.
     def get_vowel_or_consonant
-      rand( 2 ) == 1 ? VOWEL : CONSONANT
+      rand(2) == 1 ? VOWEL : CONSONANT
     end
     
     # Generate a memorable password of +length+ characters, using phonemes that
@@ -77,8 +77,7 @@ class Password
     # This method was inspired by the pwgen[http://sourceforge.net/projects/pwgen]
     # tool, written by Theodore Ts'o.
     # 
-    # Generated passwords may contain any of the characters in
-    # <tt>Password::PASSWD_CHARS</tt>.
+    # Generated passwords may contain any of the characters in <tt>Password::PHONEMES</tt>.
     def generate(length = 8, flags = nil)
       password = nil
       ph_flags = flags
@@ -91,7 +90,7 @@ class Password
         
         prev = []
         first = true
-        desired = Password.get_vowel_or_consonant
+        desired = self.get_vowel_or_consonant
         
         # Get an Array of all of the phonemes
         phonemes = PHONEMES.keys.map {|ph| ph.to_s}
@@ -116,7 +115,7 @@ class Password
         	next if prev.include?(VOWEL) && ph_flags.include?(VOWEL) && ph_flags.include?(DIPHTHONG)
           
         	# Don't allow us to go longer than the desired length
-        	next if ph_len > length - password.length
+        	next if ph_len > (length - password.length)
           
         	# We've found a phoneme that meets our criteria
         	password << phoneme
@@ -159,7 +158,6 @@ class Password
         
         # Try again
         break unless feature_flags.include?(ONE_CASE) || feature_flags.include?(ONE_DIGIT)
-        
       end
       
       password
