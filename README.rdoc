@@ -5,21 +5,21 @@ remember.
 
 == Resources
 
-Wiki
-
-* http://wiki.pluginaweek.org/Password_generator
-
 API
 
 * http://api.pluginaweek.org/password_generator
 
+Bugs
+
+* http://pluginaweek.lighthouseapp.com/projects/13282-password_generator
+
 Development
 
-* http://dev.pluginaweek.org/browser/trunk/password_generator
+* http://github.com/pluginaweek/password_generator
 
 Source
 
-* http://svn.pluginaweek.org/trunk/password_generator
+* git://github.com/pluginaweek/password_generator.git
 
 == Description
 
