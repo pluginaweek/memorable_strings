@@ -1,15 +1,12 @@
-*SVN*
+== master
 
-*0.0.2* (May 5th, 2008)
+== 0.0.2 / 2008-05-05
 
 * Update documentation
 
-*0.0.1* (September 26th, 2007)
+== 0.0.1 / 2007-09-26
 
 * Add documentation
-
 * Fix licensing
-
 * Add unit tests
-
 * Rename to password_generator
