@@ -65,14 +65,14 @@ class Password
     end
     
     # Generate a memorable password of +length+ characters, using phonemes that
-    # a human-being can easily remember. +flags+ is one or more of
+    # a human can easily remember. +flags+ is one or more of
     # <tt>Password::ONE_DIGIT</tt> and <tt>Password::ONE_CASE</tt>, logically
     # OR'ed together. For example:
     # 
     #   password = Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)
     # 
     # This would generate an eight character password, containing a digit and an
-    # upper-case letter, such as *Ug2shoth*.
+    # upper-case letter, such as "Ug2shoth".
     # 
     # This method was inspired by the pwgen[http://sourceforge.net/projects/pwgen]
     # tool, written by Theodore Ts'o.

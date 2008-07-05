@@ -1,7 +1,6 @@
 = password_generator
 
-+password_generator+ generates memorable passwords that a human-being can easily
-remember.
++password_generator+ generates memorable passwords that can be easily remembered.
 
 == Resources
 
@@ -30,19 +29,26 @@ users to recall the password without having to refer back to the message that
 contained the password.  These types of passwords help improve the overall user
 experience.
 
+This implementation is based entirely off Ian Macdonald's ruby-password library,
+repackaged to make it more easily portable and easier to invoke.
+
 == Usage
+
+=== Passwords with lowercase letters
+
+  Password.generate   # => areemoni
 
 === Passwords with a digit
 
-  Password.generate(8, Password::ONE_DIGIT)
+  Password.generate(8, Password::ONE_DIGIT)   # => thohk8tu
 
 === Passwords with a capital letter
 
-  Password.generate(8, Password::ONE_CASE)
+  Password.generate(8, Password::ONE_CASE)    => Hjowecug
 
 === Passwords with both a digit and a capital letter
 
-  Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)
+  Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)  # => Kzgth0il
 
 == Dependencies
 
