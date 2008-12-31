@@ -134,7 +134,7 @@ class Password
         	# Handle ONE_DIGIT
         	if feature_flags.include?(ONE_DIGIT)
         	  if !first && rand(10) < 3
-        	    password << (rand(10) + ?0).chr
+        	    password << (rand(10) + 48).chr
         	    feature_flags.delete(ONE_DIGIT)
               
         	    first = true
