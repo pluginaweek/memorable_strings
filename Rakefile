@@ -4,10 +4,10 @@ require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
 
 spec = Gem::Specification.new do |s|
-  s.name              = 'password_generator'
+  s.name              = 'memorable_strings'
   s.version           = '0.0.3'
   s.platform          = Gem::Platform::RUBY
-  s.summary           = 'Generates memorable passwords that can be easily remembered'
+  s.summary           = 'Generates strings that can be easily remembered'
   
   s.files             = FileList['{lib,test}/**/*'] + %w(CHANGELOG.rdoc init.rb LICENSE Rakefile README.rdoc)
   s.require_path      = 'lib'

@@ -1,54 +1,43 @@
-= password_generator
+= memorable_strings
 
-+password_generator+ generates memorable passwords that can be easily remembered.
++memorable_strings+ generates strings that can be easily remembered.
 
 == Resources
 
 API
 
-* http://api.pluginaweek.org/password_generator
+* http://api.pluginaweek.org/memorable_strings
 
 Bugs
 
-* http://pluginaweek.lighthouseapp.com/projects/13282-password_generator
+* http://pluginaweek.lighthouseapp.com/projects/13282-memorable_strings
 
 Development
 
-* http://github.com/pluginaweek/password_generator
+* http://github.com/pluginaweek/memorable_strings
 
 Source
 
-* git://github.com/pluginaweek/password_generator.git
+* git://github.com/pluginaweek/memorable_strings.git
 
 == Description
 
-Passwords are often difficult to remember, especially if they are simply a random
-combination of letters and numbers.  With +password_generator+, passwords are
-generated based on phonemic combinations.  These combinations make it easier for
-users to recall the password without having to refer back to the message that
-contained the password.  These types of passwords help improve the overall user
-experience.
-
-This implementation is based entirely off Ian Macdonald's ruby-password library,
-repackaged to make it more easily portable and easier to invoke.
+Certain strings like passwords are often difficult to remember, especially if
+they are simply a random combination of letters and numbers.  With
++memorable_strings+, strings are generated based on a set of rules that
+combine phonemes in a manner that makes the sequence of characters more
+memorable.  When used in combination with features like generating passwords,
+this can help improve the user experience.
 
 == Usage
 
-=== Passwords with lowercase letters
+  String.memorable                                    # => "maikipeo"
+  String.memorable(:length => 5)                      # => "quoge"
+  String.memorable(:capital => true)                  # => "Bukievai"
+  String.memorable(:digit => true)                    # => "ood4yosa"
+  String.memorable(:capital => true, :digit => true)  # => "Goodah5e"
 
-  Password.generate   # => areemoni
-
-=== Passwords with a digit
-
-  Password.generate(8, Password::ONE_DIGIT)   # => thohk8tu
-
-=== Passwords with a capital letter
-
-  Password.generate(8, Password::ONE_CASE)    => Hjowecug
-
-=== Passwords with both a digit and a capital letter
-
-  Password.generate(8, Password::ONE_DIGIT | Password::ONE_CASE)  # => Kzgth0il
+See MemorableStrings::Extensions::String for more information.
 
 == Dependencies
 

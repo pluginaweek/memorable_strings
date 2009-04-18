@@ -1,1 +1,1 @@
-require 'password_generator'
+require 'memorable_strings'

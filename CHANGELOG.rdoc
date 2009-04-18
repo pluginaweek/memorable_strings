@@ -1,5 +1,11 @@
 == master
 
+* Add better tests
+* Add more documentation
+* Redesign phoneme / consonant / vowel / digit logic to be in separate classes
+* Move Password.generate to String.memorable
+* Rename to memorable_strings
+
 == 0.0.3 / 2009-01-11
 
 * Add compatibility with Ruby 1.9+
