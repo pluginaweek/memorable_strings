@@ -12,6 +12,7 @@ module MemorableStrings
     end
     
     # Bootstrap
-    add 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+    add %w(3 4 7 9)
+    add %w(0 1 2 5 6 8), :print_friendly => false
   end
 end

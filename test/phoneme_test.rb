@@ -16,6 +16,14 @@ class PhonemeByDefaultTest < Test::Unit::TestCase
   def test_should_be_allowed_to_be_first
     assert @phoneme.first?
   end
+  
+  def test_should_be_print_friendly_with_downcase_context
+    assert @phoneme.print_friendly?(:downcase)
+  end
+  
+  def test_should_be_print_friendly_with_upcase_context
+    assert @phoneme.print_friendly?(:upcase)
+  end
 end
 
 class PhonemeTest < Test::Unit::TestCase
@@ -49,6 +57,59 @@ class PhonemeNotFirstTest < Test::Unit::TestCase
   
   def test_should_not_be_allowed_to_be_first
     assert !@phoneme.first?
+  end
+end
+
+class PhonemeNotPrintFriendlyTest < Test::Unit::TestCase
+  def setup
+    @phoneme = MemorableStrings::Phoneme.new(:i, :print_friendly => false)
+  end
+  
+  def test_should_not_be_print_friendly_with_downcase_context
+    assert !@phoneme.print_friendly?(:downcase)
+  end
+  
+  def test_should_not_be_print_friendly_with_upcase_context
+    assert !@phoneme.print_friendly?(:upcase)
+  end
+end
+
+class PhonemeContextPrintFriendlyTest < Test::Unit::TestCase
+  def setup
+    @phoneme = MemorableStrings::Phoneme.new(:b, :print_friendly => :downcase)
+  end
+  
+  def test_should_be_print_friendly_with_downcase_context
+    assert @phoneme.print_friendly?(:downcase)
+  end
+  
+  def test_should_not_be_print_friendly_with_upcase_context
+    assert !@phoneme.print_friendly?(:upcase)
+  end
+end
+
+class PhonemeMatchingTest < Test::Unit::TestCase
+  def setup
+    @phoneme = MemorableStrings::Phoneme.new(:a)
+  end
+  
+  def test_should_match_if_no_block_given
+    assert @phoneme.matches?
+  end
+  
+  def test_should_pass_self_into_block
+    context = nil
+    @phoneme.matches? {|*args| context = args}
+    
+    assert_equal [@phoneme], context
+  end
+  
+  def test_should_match_if_block_is_not_false
+    assert @phoneme.matches? {true}
+  end
+  
+  def test_should_not_match_if_block_is_false
+    assert !@phoneme.matches? {false}
   end
 end
 

@@ -1,5 +1,6 @@
 == master
 
+* Add :print_friendly option to skip ambiguous characters [Nate Kontny]
 * Add better tests
 * Add more documentation
 * Redesign phoneme / consonant / vowel / digit logic to be in separate classes

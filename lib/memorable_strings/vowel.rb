@@ -23,6 +23,7 @@ module MemorableStrings
     end
     
     # Bootstrap
-    add %w(a e i o u ae ah ai ee ei ie oh oo)
+    add %w(a e u ae ah ee)
+    add %w(i o ai ei ie oh oo), :print_friendly => false
   end
 end

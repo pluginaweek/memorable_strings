@@ -38,13 +38,13 @@ module MemorableStrings
       #   # Choose a vowel that can be the first letter
       #   MemorableStrings::Vowel.random {|vowel| vowel.first?}
       #   # => #<MemorableStrings::Vowel:0xb7c3e080 @first=true, @value="a", @length=1>
-      def random(maxlength = nil)
+      def random(maxlength = nil, &block)
         phonemes = all
         phonemes = phonemes.select {|phoneme| phoneme.length <= maxlength} if maxlength
         
         begin
           phoneme = phonemes[rand(phonemes.size)]
-        end while block_given? && !yield(phoneme)
+        end while !phoneme.matches?(&block)
         
         phoneme
       end
@@ -64,7 +64,7 @@ module MemorableStrings
       #   #<MemorableStrings::Vowel:0xb7c3e2b0 @first=true, @value="ae", @length=2>
       def first(maxlength, &block)
         (rand(2) == 1 ? Vowel : Consonant).random(maxlength) do |phoneme|
-          phoneme.first? && (!block_given? || block.call(phoneme))
+          phoneme.first? && phoneme.matches?(&block)
         end
       end
     end
@@ -80,20 +80,37 @@ module MemorableStrings
     # Configuration options:
     # * <tt>:first</strong> - Whether it can be used as the first value in a
     #   string.  Default is true.
+    # * <tt>:print_friendly</strong> - Whether the characters are unambiguous
+    #   when printed.  This can be set to one of the following values:
+    #   * <tt>true</tt> - Always print-friendly (default)
+    #   * <tt>:downcase</tt> - Only print-friendly when in lower case
+    #   * <tt>:upcase</tt> - Only print-friendly when in upper case
+    #   * <tt>false</tt> - Never print-friendly
     def initialize(value, options = {})
-      invalid_keys = options.keys - [:first]
+      invalid_keys = options.keys - [:first, :print_friendly]
       raise ArgumentError, "Invalid key(s): #{invalid_keys.join(', ')}" unless invalid_keys.empty?
       
-      options = {:first => true}.merge(options)
+      options = {:first => true, :print_friendly => true}.merge(options)
       
       @value = value.to_s
       @length = @value.length
       @first = options[:first]
+      @print_friendly = options[:print_friendly]
     end
     
     # Is this allowed to be the first in a sequence of phonemes?
     def first?
       @first
+    end
+    
+    # Is this character unambiguous with other characters?
+    def print_friendly?(context)
+      @print_friendly == true || @print_friendly == context
+    end
+    
+    # Does this phoneme match the conditions specified by the block?
+    def matches?
+      !block_given? || yield(self)
     end
   end
 end

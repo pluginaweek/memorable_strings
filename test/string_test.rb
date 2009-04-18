@@ -18,7 +18,7 @@ class StringByDefaultTest < Test::Unit::TestCase
   end
   
   def test_should_be_consistent
-    consistent = (1..100).each do
+    consistent = (1..1000).each do
       value = String.memorable
       value =~ /^[a-z]+$/
     end
@@ -79,7 +79,7 @@ class StringWithCapitalTest < Test::Unit::TestCase
   end
   
   def test_should_be_consistent
-    consistent = (1..100).all? do
+    consistent = (1..1000).all? do
       value = String.memorable(:capital => true)
       value =~ /^[a-z]*[A-Z][a-z]*$/
     end
@@ -112,7 +112,7 @@ class StringWithDigitTest < Test::Unit::TestCase
   end
   
   def test_should_be_consistent
-    consistent = (1..100).all? do
+    consistent = (1..1000).all? do
       value = String.memorable(:digit => true)
       value =~ /^[a-z]+[0-9]{1}[a-z]*$/
     end
@@ -139,9 +139,94 @@ class StringWithCapitalAndDigitTest < Test::Unit::TestCase
   end
   
   def test_should_be_consistent
-    consistent = (1..100).all? do
+    consistent = (1..1000).all? do
       value = String.memorable(:capital => true, :digit => true)
       value =~ /^[a-z]*([A-Z][a-z]*[0-9]|[0-9][a-z]*[A-Z])[a-z]*$/
+    end
+    
+    assert consistent
+  end
+end
+
+class StringWithPrintFriendlyTest < Test::Unit::TestCase
+  def setup
+    @value = String.memorable(:print_friendly => true)
+  end
+  
+  def test_should_have_8_characters
+    assert_equal 8, @value.length
+  end
+  
+  def test_not_include_capital
+    assert_no_match /[A-Z]/, @value
+  end
+  
+  def test_should_not_include_digit
+    assert_no_match /[0-9]/, @value
+  end
+  
+  def test_should_not_include_ambiguous_letters
+    assert_no_match /lio/, @value
+  end
+  
+  def test_should_be_consistent
+    consistent = (1..1000).all? do
+      value = String.memorable(:print_friendly => true)
+      value =~ /^[^lio]*$/
+    end
+    
+    assert consistent
+  end
+end
+
+class StringWithPrintFriendlyAndCapitalTest < Test::Unit::TestCase
+  def setup
+    @value = String.memorable(:print_friendly => true, :capital => true)
+  end
+  
+  def test_should_include_capital
+    assert_match /[A-Z]/, @value
+  end
+  
+  def test_should_not_include_digit
+    assert_no_match /[0-9]/, @value
+  end
+  
+  def test_should_not_include_ambiguous_letters
+    assert_no_match /lioBDGQSZIO/, @value
+  end
+  
+  def test_should_be_consistent
+    consistent = (1..1000).all? do
+      value = String.memorable(:print_friendly => true, :capital => true)
+      value =~ /^[^lioBDGQSZIO]*$/
+    end
+    
+    assert consistent
+  end
+end
+
+class StringWithPrintFriendlyAndDigitTest < Test::Unit::TestCase
+  def setup
+    @value = String.memorable(:print_friendly => true, :digit => true)
+  end
+  
+  def test_should_not_include_capital
+    assert_no_match /[A-Z]/, @value
+  end
+  
+  def test_should_include_digit
+    assert_match /[0-9]/, @value
+  end
+  
+  def test_should_not_include_ambiguous_letters
+    assert_no_match /lio012568/, @value
+  end
+  
+  def test_should_be_consistent
+    consistent = (1..1000).all? do
+      value = String.memorable(:print_friendly => true, :digit => true)
+      value =~ /^[^lio012568]*$/
     end
     
     assert consistent
