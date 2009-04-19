@@ -36,6 +36,7 @@ this can help improve the user experience.
   String.memorable(:capital => true)                  # => "Bukievai"
   String.memorable(:digit => true)                    # => "ood4yosa"
   String.memorable(:capital => true, :digit => true)  # => "Goodah5e"
+  String.memorable(:print_friendly => true)           # => "ahkeehav"
 
 See MemorableStrings::Extensions::String for more information.
 
