@@ -14,7 +14,7 @@ module MemorableStrings
     # Bootstrap
     add %w(c f h j k m n p r t v w x y ch ph th)
     add %w(b d g q s z qu sh), :print_friendly => :downcase
-    add %w(l), :print_friendly => false
+    add :l, :print_friendly => false
     add :ng, :first => false
     add :gh, :first => false, :print_friendly => :downcase
   end
