@@ -8,6 +8,7 @@ spec = Gem::Specification.new do |s|
   s.version           = '0.1.0'
   s.platform          = Gem::Platform::RUBY
   s.summary           = 'Generates strings that can be easily remembered'
+  s.description       = s.summary
   
   s.files             = FileList['{lib,test}/**/*'] + %w(CHANGELOG.rdoc init.rb LICENSE Rakefile README.rdoc)
   s.require_path      = 'lib'
