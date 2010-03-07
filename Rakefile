@@ -6,7 +6,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name              = 'memorable_strings'
-  s.version           = '0.1.0'
+  s.version           = '0.1.1'
   s.platform          = Gem::Platform::RUBY
   s.summary           = 'Generates strings that can be easily remembered'
   s.description       = s.summary
