@@ -6,7 +6,7 @@
 
 API
 
-* http://api.pluginaweek.org/memorable_strings
+* http://rdoc.info/projects/pluginaweek/memorable_strings
 
 Bugs
 
