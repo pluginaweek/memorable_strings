@@ -6,7 +6,7 @@
 
 API
 
-* http://rdoc.info/projects/pluginaweek/memorable_strings
+* http://rdoc.info/github/pluginaweek/memorable_strings/master/frames
 
 Bugs
 
