@@ -10,7 +10,7 @@ API
 
 Bugs
 
-* http://pluginaweek.lighthouseapp.com/projects/13282-memorable_strings
+* http://github.com/pluginaweek/memorable_strings/issues
 
 Development
 
