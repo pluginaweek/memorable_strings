@@ -1,4 +1,4 @@
-= memorable_strings
+= memorable_strings http://travis-ci.org/pluginaweek/memorable_strings.png
 
 +memorable_strings+ generates strings that can be easily remembered.
 
@@ -15,6 +15,10 @@ Bugs
 Development
 
 * http://github.com/pluginaweek/memorable_strings
+
+Testing
+
+* http://travis-ci.org/pluginaweek/memorable_strings
 
 Source
 
