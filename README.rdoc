@@ -20,6 +20,10 @@ Source
 
 * git://github.com/pluginaweek/memorable_strings.git
 
+Mailing List
+
+* http://groups.google.com/group/pluginaweek-talk
+
 == Description
 
 Certain strings like passwords are often difficult to remember, especially if
